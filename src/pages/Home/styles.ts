@@ -4,6 +4,10 @@ export const BgColor = styled.div`
   background-color: #282a36;
   margin-top: -30px;
 
+  .clear {
+    background-color: red;
+  }
+
   .button {
     display: flex;
     background-color: #f4e426;
@@ -13,19 +17,19 @@ export const BgColor = styled.div`
     left: 967px;
     width: 230px;
     height: 40px;
-    margin-top: 15px
+    margin-top: 15px;
   }
 
   .clearbutton {
-    background-color: blue;
+    display: flex;
+    background-color: red;
     color: white;
     font-size: 20px;
     border-radius: 5px;
-    width: 100px;
-    height: 30px;
-    padding-right: 10px;
-    margin-top: 20px;
-    margin-right: 15px;
+    top: 403px;
+    left: 967px;
+    padding: 4px;
+    margin-top: 15px;
   }
 `;
 

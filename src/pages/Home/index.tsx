@@ -83,20 +83,23 @@ const Home: React.FC = () => {
                 >
                   Buscar
                 </button>
+
+                <div>
+                  {search.length > 0 && (
+                    <div className=" px-2">
+                      <button
+                        className="d-flex justify-content-center align-items-center  clearbutton"
+                        id="clear"
+                        type="button"
+                        onClick={handleClearSearch}
+                      >
+                        Limpar
+                      </button>
+                    </div>
+                  )}
+                </div>
               </Col>
             </Row>
-
-            <div>
-              {search.length > 0 && (
-                <button
-                  className="d-flex align-items-center  justify-content-center clearbutton  "
-                  type="button"
-                  onClick={handleClearSearch}
-                >
-                  Limpar
-                </button>
-              )}
-            </div>
           </BgButton>
 
           {isLoading && (
