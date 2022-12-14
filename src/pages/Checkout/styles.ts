@@ -31,6 +31,7 @@ export const FormCheck = styled.div`
 
   input {
     background-color: #333333;
+    border-radius: 5px;
   }
 `;
 
