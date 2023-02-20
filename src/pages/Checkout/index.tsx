@@ -1,9 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { memo, useCallback, useEffect, useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
-import { Card, Col, Container, Form, Row } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Modal,
+  Row,
+} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { AiOutlineDoubleLeft } from 'react-icons/ai';
+import { BiArrowBack } from 'react-icons/bi';
 import InputMask from 'react-input-mask';
 import { Link, useParams } from 'react-router-dom';
 
@@ -22,6 +31,10 @@ import cepApi from 'services/CepApi';
 
 import {
   BgColor,
+  BtnBg,
+  ButtonCredit,
+  ButtonCreditCard,
+  ButtonTicket,
   FormCheck,
   FormContainer,
   FormVehicule,
@@ -51,6 +64,12 @@ const Checkout: React.FC = () => {
   const [isLoadingAddress, setIsLoadingAddress] = useState(false);
   const [isInvalidCep, setIsInvalidCep] = useState(false);
   const { selectedVehicle, fetchVehicles } = useVehicles();
+  const [payment, setPayment] = useState('');
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const {
     register,
@@ -101,15 +120,20 @@ const Checkout: React.FC = () => {
 
   return (
     <>
-      <Header />
       <BgColor>
-        <Container>
+        <Header />
+        <Container className="my-3">
           <Link style={{ textDecoration: 'none' }} to="/">
-            <Title>Checkout</Title>
+            <Title>
+              <BiArrowBack />
+              Checkout
+            </Title>
           </Link>
+        </Container>
+        <Container>
           <Row>
             <Col>
-              <Card className="w-100">
+              <Card>
                 <FormContainer>
                   <Card.Body>
                     <Subtitle>Informações Pessoais</Subtitle>
@@ -212,6 +236,7 @@ const Checkout: React.FC = () => {
                       <input
                         type="text"
                         placeholder="número"
+                        className="form-control"
                         {...register('número')}
                       />
                       <div>
@@ -264,61 +289,77 @@ const Checkout: React.FC = () => {
                   <Subtitle className="mb-3">Forma de Pagamento</Subtitle>
 
                   <div className="d-flex justify-content-evenly mb-3">
-                    <button className="yellowbutton">Cartão de Crédito</button>
-                    <button className="whitebutton">Boleto Bancário</button>
+                    <ButtonCredit
+                      type="button"
+                      onClick={() => setPayment('credit')}
+                      active={payment}
+                    >
+                      Cartão de crédito
+                    </ButtonCredit>
                   </div>
+                  <ButtonTicket
+                    type="button"
+                    onClick={() => setPayment('ticket')}
+                    active={payment}
+                  >
+                    Boleto Bancário
+                  </ButtonTicket>
 
-                  <form>
-                    <div>
-                      <label htmlFor="Nome do Titular">
-                        Nome do titular do Cartão
-                      </label>
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Titular"
-                      {...register('Titular')}
-                    />
-                    <div>
-                      <label htmlFor="Número do Cartão">Número do Cartão</label>
-                    </div>
-                    <div>
+                  {payment === 'credit' && (
+                    <form>
+                      <div>
+                        <label htmlFor="Nome do Titular">
+                          Nome do titular do Cartão
+                        </label>
+                      </div>
                       <input
                         type="text"
-                        placeholder=""
-                        {...register('número do cartão')}
+                        placeholder="Titular"
+                        {...register('Titular')}
                       />
-                    </div>
-                    <div>
                       <div>
-                        <label htmlFor="Validade">Validade</label>
+                        <label htmlFor="Número do Cartão">
+                          Número do Cartão
+                        </label>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          placeholder=""
+                          {...register('número do cartão')}
+                        />
                       </div>
                       <div>
                         <div>
-                          <input
-                            type="text"
-                            placeholder="validade"
-                            {...register('validade')}
-                          />
+                          <label htmlFor="Validade">Validade</label>
                         </div>
                         <div>
                           <div>
-                            <label htmlFor="Código de segurança">
-                              Código de Segurança
-                            </label>
+                            <input
+                              type="text"
+                              placeholder="validade"
+                              {...register('validade')}
+                            />
                           </div>
-                          <input
-                            className="form"
-                            type="text"
-                            placeholder=""
-                            {...register('bairro')}
-                          />
+                          <div>
+                            <div>
+                              <label htmlFor="Código de segurança">
+                                Código de Segurança
+                              </label>
+                            </div>
+                            <input
+                              className="form"
+                              type="text"
+                              placeholder=""
+                              {...register('bairro')}
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <button type="submit">enviar</button>
-                  </form>
+                      <button type="submit">enviar</button>
+                    </form>
+                  )}
                 </FormCheck>
               </FormContainer>
 
@@ -330,14 +371,49 @@ const Checkout: React.FC = () => {
                   <Subtitle className="mb-3">{selectedVehicle.name}</Subtitle>
                   <Subtitle>¢{selectedVehicle.cost_in_credits}</Subtitle>
                 </div>
-                <div className=" d-flex justify-content-center py-3">
-                  <button
-                    className="paybutton"
-                    onClick={() => setSelectedVehicle(vehicle)}
-                  >
-                    Finalizar Compra
-                  </button>
-                </div>
+                <Button variant="primary" onClick={handleShow}>
+                  Launch demo modal
+                </Button>
+
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Subtitle className="mb-3">{selectedVehicle.name}</Subtitle>
+                    <p>{selectedVehicle.manufacturer}</p>
+                    <Subtitle>¢{selectedVehicle.cost_in_credits}</Subtitle>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                      Save Changes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+                {selectedVehicle && (
+                  <div className="my-5 px-3 py-3 ">
+                    <div>{selectedVehicle.manufacturer}</div>
+                    <h1>{selectedVehicle.model}</h1>
+                    {selectedVehicle.cost_in_credits === 'unknown' ? (
+                      ''
+                    ) : (
+                      <h1>€ {selectedVehicle.cost_in_credits}</h1>
+                    )}
+                    {payment === 'credit' && (
+                      <BtnBg type="submit" className="my-2 w-100">
+                        <Link to="/confirm">Finalizar compra123</Link>
+                      </BtnBg>
+                    )}
+                    {payment === 'ticket' && (
+                      <BtnBg type="submit" className="my-2 w-100">
+                        <Link to="/bankConfirm">Finalizar compra456</Link>
+                      </BtnBg>
+                    )}
+                  </div>
+                )}
               </FormVehicule>
             </Col>
           </Row>

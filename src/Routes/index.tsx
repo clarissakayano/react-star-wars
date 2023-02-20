@@ -14,8 +14,8 @@ const Routes: React.FC = () => {
       <Switch>
         <Route path="/" element={<Home />} />
         <Route path="/checkout/:id" element={<Checkout />} />
-        <Route path="/Confirm" element={<CreditsConfirmation />} />
-        <Route path="/BankConfirm" element={<BankConfirm />} />
+        <Route path="/confirm" element={<CreditsConfirmation />} />
+        <Route path="/bankConfirm" element={<BankConfirm />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </BrowserRouter>

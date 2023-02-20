@@ -18,7 +18,7 @@ const Header: React.FC = () => (
         </div>
       </Container>
     </BgColor>
-   <BannerM />
+    <BannerM />
   </header>
 );
 

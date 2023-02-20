@@ -36,3 +36,7 @@ export const ContainerCheck = styled.div`
     color: #000000;
   }
 `;
+
+export const Title1 = styled.h1`
+  color: white;
+`;

@@ -93,12 +93,12 @@ export const FormProvider: React.FC<IFormProviderProps> = ({ children }) => {
   );
 };
 
-export const useVehicles = (): IContextProps => {
+export const useCheckout = (): IContextProps => {
   const context = useContext(ReactContext);
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('useVehicles must be within VehiclesProvider');
+    console.error('useCheckout must be within CheckoutProvider');
   }
 
   return context;

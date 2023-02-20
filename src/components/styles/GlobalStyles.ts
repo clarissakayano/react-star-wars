@@ -1,6 +1,10 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+html, body #root {
+    min-height: 100vh;
+}
+
 
 * {
     margin: 0;
@@ -28,4 +32,9 @@ a:hover {
 }
 
 
+`;
+export const Wrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;

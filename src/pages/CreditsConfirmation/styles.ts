@@ -28,3 +28,6 @@ export const Title = styled.p`
 export const ContainerCheck = styled.div`
   background-color: #282a36;
 `;
+export const Title1 = styled.h1`
+  color: white;
+`;

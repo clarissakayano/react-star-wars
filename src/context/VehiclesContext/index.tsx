@@ -18,10 +18,12 @@ interface IContextProps {
   currentPage: number;
   error: string | null;
   fetchVehicles: () => Promise<void>;
+  fetchVehicle: (charId: number | string) => Promise<void>;
   isLoading: boolean;
   totalPages: number;
   vehicle: VehicleType;
   setSelectedVehicle: (vehicle: VehicleType) => void;
+  selectedVehicle: VehicleType | null;
 }
 
 interface IVehiclesProviderProps {
@@ -34,7 +36,7 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
   children,
 }) => {
   const [vehicles, setVehicles] = useState<VehicleType[]>([]);
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleType>();
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [pages, setPages] = useState(0);
@@ -58,7 +60,7 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
       console.log('seacrh', search);
       console.log('data', results);
     } catch {
-      console.error('DEU ERRO');
+      console.error('DEU ERRO FectchVehicles');
     } finally {
       setIsLoading(false);
     }
@@ -69,18 +71,33 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const fetchVehicle = useCallback(async (charId: number | string) => {
+    setIsLoading(true);
+
+    try {
+      const { data } = await Api.get(`/vehicles/${charId}`);
+
+      setSelectedVehicle(data);
+    } catch {
+      console.error('DEU ERRO');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   return (
     <ReactContext.Provider
       value={useMemo(
         () => ({
           vehicles,
+          selectedVehicle,
           currentPage,
           isLoading,
           pages,
           error,
           totalPages,
           fetchVehicles,
-          selectedVehicle,
+          fetchVehicle,
           setSelectedVehicle,
         }),
         [
@@ -92,6 +109,7 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
           fetchVehicles,
           totalPages,
           selectedVehicle,
+          fetchVehicle,
           setSelectedVehicle,
         ],
       )}

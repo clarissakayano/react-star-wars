@@ -12,6 +12,7 @@ export type FormType = {
   cidade: string;
   estado: string;
 
+  card_name?: string;
   cartão: string;
   validade: string;
   código: string;

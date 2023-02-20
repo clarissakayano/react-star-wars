@@ -62,7 +62,7 @@ const Home: React.FC = () => {
   return (
     <div>
       <Header />
-      <BgColor>
+      <BgColor className="d-flex flex-column">
         <Container className="d-flex flex-column justify-content-center">
           <BgButton className="d-flex justify-content-center mb-2 py-3">
             <Row className="w-100">

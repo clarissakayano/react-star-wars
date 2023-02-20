@@ -11,7 +11,7 @@ export const BgColor = styled.div`
 export const BannerM = styled.div`
   background-image: url(${SpaceM});
   display: flex;
-  background-position-x: 30% ;
+  background-position-x: 30%;
   background-size: cover;
   height: 400px;
   margin: 0;

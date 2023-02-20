@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 
 import logo from 'assets/logo.png';
 
+import { BgColor } from './styles';
 
 const Main: React.FC = () => (
   <BgColor>
@@ -11,7 +12,6 @@ const Main: React.FC = () => (
       <div>
         <img src={Space} alt="Space Motors Banner" className="img-fluid" />
       </div>
-      
     </Container>
   </BgColor>
 );
