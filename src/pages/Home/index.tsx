@@ -110,16 +110,18 @@ const Home: React.FC = () => {
           )}
           {!isLoading && <p style={{ color: 'red' }}>{error}</p>}
           {!isLoading && !error && (
-            <Row className="row-cols row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center mb-5 g-">
-              {vehicles.map((vehicle, i) => (
-                <Col className="d-flex  g-3" key={i}>
-                  <VehicleCard
-                    vehicle={vehicle}
-                    onClick={() => setSelectedVehicle(vehicle)}
-                  />
-                </Col>
-              ))}
-            </Row>
+            <Container className="">
+              <Row className="row-cols row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4  justify-content-center">
+                {vehicles.map((vehicle, i) => (
+                  <Col className="d-md-flex" key={i}>
+                    <VehicleCard
+                      vehicle={vehicle}
+                      onClick={() => setSelectedVehicle(vehicle)}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </Container>
           )}
           {totalPages > 1 && (
             <Pagination

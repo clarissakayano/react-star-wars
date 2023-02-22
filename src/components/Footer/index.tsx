@@ -12,7 +12,7 @@ const Footer: React.FC = () => (
       <div className="d-flex justify-content-center">
         <img className="img-fluid " src={logo} alt="space-motors" />
       </div>
-      <p className="d-flex justify-content-center">
+      <p className="d-flex justify-content-center mt-3">
         site por<span>Clarissa A. Kayano</span>
       </p>
     </Container>

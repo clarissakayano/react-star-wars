@@ -8,12 +8,14 @@ type NormalizeFormType = {
   email: string;
   phone: number;
   cpf: number;
+  cartão: string;
 };
 
 export const normalizeFormData = (data: FormType): NormalizeFormType => ({
   ...data,
   phone: data.phone.length ? Number(data.phone) : undefined,
   cpf: data.cpf.length ? Number(data.cpf) : undefined,
+  cartão: data.cartão.length ? Number(data.cartão) : undefined,
 });
 
 export const urlToId = (url: string): string => url.split('/')[5];

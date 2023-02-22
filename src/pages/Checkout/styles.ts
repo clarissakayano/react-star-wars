@@ -3,6 +3,12 @@ import styled from 'styled-components';
 export const BgColor = styled.div`
   background-color: #282a36;
 
+  span,
+  label {
+    font-family: 'adobe-clean', sans-serif;
+    font-weight: 700;
+  }
+
   .button {
     background-color: #f4e426;
     font-size: 20px;
@@ -19,11 +25,18 @@ export const BgColor = styled.div`
 
   .paybutton {
     background-color: #f4e426;
-    font: normal normal bold 15px/30px Lato;
+    font-family: normal normal bold 15px/30px Lato;
     border-radius: 5px;
   }
   input {
     background-color: #333333;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border: none;
+    color: white;
+    ::shadow {
+      color: #282a36;
+    }
   }
 `;
 export const FormCheck = styled.div`
@@ -39,38 +52,36 @@ interface IButtonCredit {
 }
 
 export const ButtonCredit = styled.button<IButtonCredit>`
-  width: 100%;
-  height: 40px;
-  background: ${({ active }) =>
-      active === 'creditCard' ? '#F4E426' : '#cccccc'}
+  background: ${({ active }) => (active === 'credit' ? '#F4E426' : '#cccccc')}
     0% 0% no-repeat padding-box;
+  padding: 10px;
+  width: 100%;
+  font-weight: 500;
   border-radius: 5px;
-  opacity: 1;
   border: none;
   color: #000;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 14.5px;
-  font-weight: 500;
+  font-size: 15px;
 `;
 
-interface IButtonTicket {
+interface IButtonBank {
   active: string;
 }
 
-export const ButtonTicket = styled.button<IButtonTicket>`
+export const ButtonBank = styled.button<IButtonBank>`
+  background: ${({ active }) => (active === 'bank' ? '#F4E426' : '#cccccc')} 0%
+    0% no-repeat padding-box;
+  padding: 10px;
   width: 100%;
-  height: 40px;
-  background: ${({ active }) => (active === 'ticket' ? '#F4E426' : '#cccccc')}
-    0% 0% no-repeat padding-box;
-  border-radius: 5px;
-  opacity: 1;
+  font-weight: 500;
   border: none;
   color: #000;
+  border-radius: 5px;
+  opacity: 1;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 14.5px;
-  font-weight: 500;
+  font-size: 15px;
 `;
 
 export const BgButton = styled.section`
@@ -85,25 +96,17 @@ export const FormContainer = styled.div`
   background-color: black;
   border-radius: 5px;
   color: white;
-
-  .bgsecundary {
-    color: #333333;
-  }
-  .card-body {
-    background-color: black;
-  }
 `;
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   color: white;
 `;
 
 export const Subtitle = styled.h3`
   color: #f4e426;
   text-align: left;
-  font: normal normal bold 22px/27px Helvetica Neue;
-  padding-left: 15px;
-
+  font-family: normal normal bold 22px/27px Helvetica Neue;
+  font-size: 22px;
   form {
     border: none;
   }
@@ -118,11 +121,11 @@ export const TextInvalid = styled.h6`
   color: red;
 `;
 
-export const TextSub = styled.p`
-  margin-top: 15px;
-  padding-left: 10px;
-  font: normal normal normal 14px/16px Helvetica Neue;
+export const TextSub = styled.h3`
+  font-size: 14px;
+  font-family: 'adobe-clean', sans-serif;
   color: #707070;
+  padding-top: 15px;
 `;
 
 export const BtnBg = styled.button`
@@ -130,13 +133,16 @@ export const BtnBg = styled.button`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 40px;
+  padding: 8px;
+  font-weight: 500;
   background-color: #f4e426;
   border-radius: 5px;
   opacity: 1;
   color: #000;
   border: none;
-
+  &:hover {
+    background-color: #f4ce26;
+  }
   /* unvisited link */
   a:link {
     color: black;
@@ -146,10 +152,5 @@ export const BtnBg = styled.button`
   /* visited link */
   a:visited {
     color: black;
-  }
-
-  /* mouse over link */
-  a:hover {
-    color: grey;
   }
 `;

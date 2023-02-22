@@ -32,6 +32,7 @@ import cepApi from 'services/CepApi';
 import {
   BgColor,
   BtnBg,
+  ButtonBank,
   ButtonCredit,
   ButtonCreditCard,
   ButtonTicket,
@@ -122,83 +123,83 @@ const Checkout: React.FC = () => {
     <>
       <BgColor>
         <Header />
-        <Container className="my-3">
+        <Container className="my-4">
           <Link style={{ textDecoration: 'none' }} to="/">
             <Title>
-              <BiArrowBack />
+              <BiArrowBack size={30} className="me-3" />
               Checkout
             </Title>
           </Link>
         </Container>
         <Container>
-          <Row>
+          <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-md-end">
             <Col>
-              <Card>
-                <FormContainer>
-                  <Card.Body>
-                    <Subtitle>Informações Pessoais</Subtitle>
-                    <form onSubmit={handleSubmit(handleFormSubmit)}>
+              <FormContainer>
+                <FormCheck className="mb-3">
+                  <Subtitle>Informações Pessoais</Subtitle>
+                  <form onSubmit={handleSubmit(handleFormSubmit)}>
+                    <div>
+                      <span>Nome:</span>
                       <div>
-                        <span>Nome:</span>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="Digite o seu nome"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('name', {
-                              required: 'Informe seu nome',
-                              minLength: {
-                                value: 3,
-                                message:
-                                  'O nome precisa ter no mínimo 3 letras',
-                              },
-                            })}
-                          />
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Digite o seu nome"
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...register('name', {
+                            required: 'Informe seu nome',
+                            minLength: {
+                              value: 3,
+                              message: 'O nome precisa ter no mínimo 3 letras',
+                            },
+                          })}
+                        />
 
-                          {errors.name && <p>{errors.name.message}</p>}
-                        </div>
+                        {errors.name && <p>{errors.name.message}</p>}
                       </div>
+                    </div>
+                    <div>
+                      <span>E-mail:</span>
                       <div>
-                        <span>E-mail:</span>
-                        <div>
-                          <input
-                            type="email"
-                            placeholder="Digite o seu e-mail"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('email')}
-                          />
-                        </div>
+                        <input
+                          type="email"
+                          className="form-control"
+                          placeholder="Digite o seu e-mail"
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...register('email')}
+                        />
                       </div>
+                    </div>
 
+                    <div>
+                      <span>Telefone</span>
                       <div>
-                        <span>Telefone</span>
-                        <div>
-                          <InputMask
-                            mask="(99) 99999-9999"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('phone')}
-                          />
-                        </div>
+                        <InputMask
+                          className="form-control"
+                          mask="(99) 99999-9999"
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...register('phone')}
+                        />
                       </div>
+                    </div>
+                    <div>
+                      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                      <label htmlFor="cpf">CPF</label>
                       <div>
-                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                        <label htmlFor="cpf">CPF</label>
-                        <div>
-                          <InputMask
-                            id="cpf"
-                            mask="999-999-999-99"
-                            {...register('cpf')}
-                          />
-                        </div>
+                        <InputMask
+                          className="form-control"
+                          mask="999-999-999-99"
+                          {...register('cpf')}
+                        />
                       </div>
-                    </form>
-                  </Card.Body>
-                </FormContainer>
-              </Card>
+                    </div>
+                  </form>
+                </FormCheck>
+              </FormContainer>
             </Col>
             <Col>
               <FormContainer>
-                <FormCheck className=" mb-5">
+                <FormCheck className=" mb-3">
                   <Subtitle>Endereço</Subtitle>
                   <form>
                     <div>
@@ -207,6 +208,7 @@ const Checkout: React.FC = () => {
 
                       <div>
                         <InputMask
+                          className="form-control"
                           mask="99999-999"
                           {...register('cep', { required: 'informe o CEP' })}
                         />
@@ -226,34 +228,43 @@ const Checkout: React.FC = () => {
                         <label htmlFor="Logradouro">Logradouro</label>
                       </div>
                       <input
+                        className="form-control"
                         type="text"
                         placeholder=""
                         {...register('logradouro')}
                       />
-                      <div>
-                        <label htmlFor="Número">Número</label>
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="número"
-                        className="form-control"
-                        {...register('número')}
-                      />
-                      <div>
-                        <label htmlFor="Complemento">Complemento</label>
-                        <div>
+                      <Row>
+                        <Col>
+                          <div>
+                            <label htmlFor="Número">Número</label>
+                          </div>
                           <input
                             type="text"
-                            placeholder="Complemento"
-                            {...register('complemento')}
+                            placeholder="número"
+                            className="form-control"
+                            {...register('número')}
                           />
-                        </div>
-                      </div>
+                        </Col>
+                        <Col>
+                          <div>
+                            <label htmlFor="Complemento">Complemento</label>
+                            <div>
+                              <input
+                                className="form-control"
+                                type="text"
+                                placeholder="Complemento"
+                                {...register('complemento')}
+                              />
+                            </div>
+                          </div>
+                        </Col>
+                      </Row>
                       <div>
                         <div>
                           <label htmlFor="Bairro">Bairro</label>
                         </div>
                         <input
+                          className="form-control"
                           type="text"
                           placeholder="bairro"
                           {...register('bairro')}
@@ -263,6 +274,7 @@ const Checkout: React.FC = () => {
                         <label htmlFor="Cidade">Cidade</label>
                       </div>
                       <input
+                        className="form-control"
                         type="text"
                         placeholder="cidade"
                         {...register('cidade')}
@@ -273,6 +285,7 @@ const Checkout: React.FC = () => {
                           <label htmlFor="Estado">Estado</label>
                         </div>
                         <input
+                          className="form-control"
                           type="text"
                           placeholder="estado"
                           {...register('estado')}
@@ -284,26 +297,29 @@ const Checkout: React.FC = () => {
               </FormContainer>
             </Col>
             <Col>
-              <FormContainer className="mb-5">
+              <FormContainer className="mb-2">
                 <FormCheck>
                   <Subtitle className="mb-3">Forma de Pagamento</Subtitle>
-
-                  <div className="d-flex justify-content-evenly mb-3">
-                    <ButtonCredit
-                      type="button"
-                      onClick={() => setPayment('credit')}
-                      active={payment}
-                    >
-                      Cartão de crédito
-                    </ButtonCredit>
-                  </div>
-                  <ButtonTicket
-                    type="button"
-                    onClick={() => setPayment('ticket')}
-                    active={payment}
-                  >
-                    Boleto Bancário
-                  </ButtonTicket>
+                  <Row className="row-cols-1 row-cols-md-1 row-cols-lg-2  row-cols-xl-2">
+                    <Col className="d-flex justify-content-evenly mb-3">
+                      <ButtonCredit
+                        type="button"
+                        onClick={() => setPayment('credit')}
+                        active={payment}
+                      >
+                        Cartão de crédito
+                      </ButtonCredit>
+                    </Col>
+                    <Col>
+                      <ButtonBank
+                        type="button"
+                        onClick={() => setPayment('bank')}
+                        active={payment}
+                      >
+                        Boleto Bancário
+                      </ButtonBank>
+                    </Col>
+                  </Row>
 
                   {payment === 'credit' && (
                     <form>
@@ -313,9 +329,10 @@ const Checkout: React.FC = () => {
                         </label>
                       </div>
                       <input
+                        className="form-control"
                         type="text"
                         placeholder="Titular"
-                        {...register('Titular')}
+                        {...register('name')}
                       />
                       <div>
                         <label htmlFor="Número do Cartão">
@@ -323,98 +340,72 @@ const Checkout: React.FC = () => {
                         </label>
                       </div>
                       <div>
-                        <input
-                          type="text"
-                          placeholder=""
-                          {...register('número do cartão')}
+                        <InputMask
+                          className="form-control"
+                          mask="9999 9999 9999 9999"
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...register('number')}
                         />
                       </div>
-                      <div>
-                        <div>
-                          <label htmlFor="Validade">Validade</label>
-                        </div>
-                        <div>
+
+                      <Row className="row-cols-md-2">
+                        <Col>
                           <div>
-                            <input
-                              type="text"
-                              placeholder="validade"
-                              {...register('validade')}
+                            <label htmlFor="Validade">Validade</label>
+                          </div>
+                          <div>
+                            <InputMask
+                              className="form-control"
+                              mask="99/99"
+                              // eslint-disable-next-line react/jsx-props-no-spreading
+                              {...register('number')}
                             />
                           </div>
+                        </Col>
+                        <Col>
                           <div>
                             <div>
-                              <label htmlFor="Código de segurança">
-                                Código de Segurança
-                              </label>
+                              <label htmlFor="Código de segurança">CVV</label>
                             </div>
-                            <input
-                              className="form"
-                              type="text"
-                              placeholder=""
-                              {...register('bairro')}
+                            <InputMask
+                              className="form-control"
+                              mask="999"
+                              // eslint-disable-next-line react/jsx-props-no-spreading
+                              {...register('number')}
                             />
                           </div>
-                        </div>
-                      </div>
-
-                      <button type="submit">enviar</button>
+                        </Col>
+                      </Row>
                     </form>
                   )}
                 </FormCheck>
               </FormContainer>
 
-              <FormVehicule className="d-fex justify-content-center mb-3">
-                <div>
-                  <TextSub className="py-3">
-                    {selectedVehicle.manufacturer}
-                  </TextSub>
-                  <Subtitle className="mb-3">{selectedVehicle.name}</Subtitle>
-                  <Subtitle>¢{selectedVehicle.cost_in_credits}</Subtitle>
-                </div>
-                <Button variant="primary" onClick={handleShow}>
-                  Launch demo modal
-                </Button>
+              {selectedVehicle && (
+                <FormVehicule className="d-fex justify-content-center mb-3">
+                  <Container>
+                    <TextSub>{selectedVehicle?.manufacturer}</TextSub>
 
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Subtitle className="mb-3">{selectedVehicle.name}</Subtitle>
-                    <p>{selectedVehicle.manufacturer}</p>
-                    <Subtitle>¢{selectedVehicle.cost_in_credits}</Subtitle>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                      Save Changes
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
-                {selectedVehicle && (
-                  <div className="my-5 px-3 py-3 ">
-                    <div>{selectedVehicle.manufacturer}</div>
-                    <h1>{selectedVehicle.model}</h1>
-                    {selectedVehicle.cost_in_credits === 'unknown' ? (
-                      ''
-                    ) : (
-                      <h1>€ {selectedVehicle.cost_in_credits}</h1>
-                    )}
+                    <Subtitle className="mb-4">
+                      {selectedVehicle?.name}
+                    </Subtitle>
+                    <Subtitle>¢{selectedVehicle?.cost_in_credits}</Subtitle>
+                  </Container>
+
+                  <div className="my-1 px-3 py-3 ">
                     {payment === 'credit' && (
-                      <BtnBg type="submit" className="my-2 w-100">
-                        <Link to="/confirm">Finalizar compra123</Link>
+                      <BtnBg type="submit" className="my-2">
+                        <Link to="/confirm">Finalizar compra</Link>
                       </BtnBg>
                     )}
-                    {payment === 'ticket' && (
-                      <BtnBg type="submit" className="my-2 w-100">
-                        <Link to="/bankConfirm">Finalizar compra456</Link>
+                    {payment === 'bank' && (
+                      <BtnBg type="submit" className="my-2">
+                        <Link to="/bankConfirm">Finalizar compra</Link>
                       </BtnBg>
                     )}
                   </div>
-                )}
-              </FormVehicule>
+                </FormVehicule>
+              )}
             </Col>
           </Row>
         </Container>

@@ -1,13 +1,40 @@
+import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
 
-export const Title = styled.p`
+export const CardVehicle = styled(Card)`
+  background-color: black;
+  color: white;
+  table {
+    border: none;
+  }
+  td,
+  th {
+    border: none;
+    font-family: 'adobe-clean', sans-serif;
+    font-weight: 100;
+  }
+  td {
+    text-align: end;
+    font-family: 'adobe-clean', sans-serif;
+    font-weight: 100;
+  }
+  th {
+    line-height: 1.5;
+  }
+  Table {
+    color: white;
+    font-family: 'adobe-clean', sans-serif;
+    font-weight: 100;
+  }
+`;
+
+export const Title = styled.span`
   color: yellow;
-  font-size: 30px;
+  font-size: 20px;
   margin-left: 15px;
   border-style: none;
-
-
- 
+  font-family: 'adobe-clean', sans-serif;
+  font-weight: 700;
   a:link {
     color: red;
     text-decoration: none;
@@ -21,7 +48,6 @@ export const Title = styled.p`
     color: green;
   }
 `;
-
 
 export const Text1 = styled.h3`
   font-size: 12px;
