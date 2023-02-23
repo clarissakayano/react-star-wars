@@ -19,7 +19,6 @@ export const CardVehicle = styled(Card)`
     font-weight: 100;
   }
   th {
-    line-height: 1.5;
   }
   Table {
     color: white;
@@ -31,7 +30,7 @@ export const CardVehicle = styled(Card)`
 export const Title = styled.span`
   color: yellow;
   font-size: 20px;
-  margin-left: 15px;
+  text-align: start;
   border-style: none;
   font-family: 'adobe-clean', sans-serif;
   font-weight: 700;
@@ -52,5 +51,5 @@ export const Title = styled.span`
 export const Text1 = styled.h3`
   font-size: 12px;
   color: #525252;
-  margin-left: 15px;
+  text-align: start;
 `;

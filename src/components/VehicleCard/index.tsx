@@ -18,13 +18,12 @@ const VehicleCard: React.FC<IVehicleCardProps> = ({ vehicle, onClick }) => {
     [],
   );
   return (
-    <CardVehicle onClick={onClick} className="d-md-flex px-md-5 py-md-4  mt-3">
+    <CardVehicle onClick={onClick} className="w-100 d-md-flex mb-4">
+      <Text1 className="mt-3 mx-2">{vehicle.manufacturer}</Text1>
+      <Link style={{ textDecoration: 'none' }} to={`checkout/${vehicle.id}`}>
+        <Title className="d-flex  mx-2">{vehicle.name}</Title>
+      </Link>
       <Table className="">
-        <Text1 className="mt-1">{vehicle.manufacturer}</Text1>
-        <Link style={{ textDecoration: 'none' }} to={`checkout/${vehicle.id}`}>
-          <Title>{vehicle.name}</Title>
-        </Link>
-        <Text1>{vehicle.model}</Text1>
         <tbody>
           <tr>
             <th colSpan={3}>Largura: </th>
@@ -52,7 +51,7 @@ const VehicleCard: React.FC<IVehicleCardProps> = ({ vehicle, onClick }) => {
           </tr>
         </tbody>{' '}
       </Table>
-      <Title>
+      <Title className="mx-2 mb-3">
         {vehicle.cost_in_credits === 'unknown'
           ? '-'
           : `¢ ${NormalizeNumber(Number(vehicle.cost_in_credits))}`}
