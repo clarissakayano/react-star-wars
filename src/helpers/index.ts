@@ -1,19 +1,11 @@
 import { VehiclesProvider } from 'context/VehiclesContext';
 
-import { FormType } from 'components/types/CheckoutType';
+import { FormType, NormalizedFormType } from 'components/types/CheckoutType';
 import { VehicleType } from 'components/types/VehicleType';
 
-type NormalizeFormType = {
-  name: string;
-  email: string;
-  phone: number;
-  cpf: number;
-  cartão: string;
-};
-
-export const normalizeFormData = (data: FormType): NormalizeFormType => ({
+export const normalizeFormData = (data: FormType): NormalizedFormType => ({
   ...data,
-  phone: data.phone.length ? Number(data.phone) : undefined,
+  phone: Number(data.phone),
   cpf: data.cpf.length ? Number(data.cpf) : undefined,
   cartão: data.cartão.length ? Number(data.cartão) : undefined,
 });

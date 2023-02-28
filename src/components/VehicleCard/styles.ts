@@ -12,6 +12,7 @@ export const CardVehicle = styled(Card)`
     border: none;
     font-family: 'adobe-clean', sans-serif;
     font-weight: 100;
+    font-size: 14px;
   }
   td {
     text-align: end;
@@ -49,7 +50,7 @@ export const Title = styled.span`
 `;
 
 export const Text1 = styled.h3`
-  font-size: 12px;
+  font-size: 14px;
   color: #525252;
   text-align: start;
 `;

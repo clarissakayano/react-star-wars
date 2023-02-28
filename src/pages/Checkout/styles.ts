@@ -39,6 +39,15 @@ export const BgColor = styled.div`
     }
   }
 `;
+
+export const Form = styled.form`
+  padding: 15px;
+
+  input {
+    background-color: #333333;
+    border-radius: 5px;
+  }
+`;
 export const FormCheck = styled.div`
   padding: 15px;
 

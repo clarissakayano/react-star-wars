@@ -57,7 +57,7 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
 
       setVehicles(normalizeVehicleData(results));
       setTotalPages(Math.ceil(count / limit));
-      console.log('seacrh', search);
+      console.log('search', search);
       console.log('data', results);
     } catch {
       console.error('DEU ERRO FectchVehicles');
@@ -69,7 +69,7 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
   useEffect(() => {
     fetchVehicles(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchVehicles]);
 
   const fetchVehicle = useCallback(async (charId: number | string) => {
     setIsLoading(true);
