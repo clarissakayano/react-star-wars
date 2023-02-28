@@ -18,7 +18,7 @@ const VehicleCard: React.FC<IVehicleCardProps> = ({ vehicle, onClick }) => {
     [],
   );
   return (
-    <CardVehicle onClick={onClick} className="w-100 d-md-flex mb-4">
+    <CardVehicle onClick={onClick} className="w-100 d-md-flex mb-3">
       <Text1 className="mt-3 mx-2">{vehicle.manufacturer}</Text1>
       <Link style={{ textDecoration: 'none' }} to={`checkout/${vehicle.id}`}>
         <Title className="d-flex  mx-2">{vehicle.name}</Title>

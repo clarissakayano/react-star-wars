@@ -20,6 +20,7 @@ import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import { Wrapper } from 'components/styles/GlobalStyles';
 import { Pagination } from 'components/styles/Pagination';
 import VehicleCard from 'components/VehicleCard';
 
@@ -60,7 +61,7 @@ const Home: React.FC = () => {
   console.log(vehicles);
 
   return (
-    <div>
+    <Wrapper>
       <Header />
       <BgColor className="d-flex flex-column">
         <Container className="d-flex flex-column justify-content-center">
@@ -72,6 +73,7 @@ const Home: React.FC = () => {
                     placeholder="Digite o nome ou modelo do veículo"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={handleSearch}
                   />
                 </InputGroup>
               </Col>
@@ -136,7 +138,7 @@ const Home: React.FC = () => {
         </Container>
         <Footer />
       </BgColor>
-    </div>
+    </Wrapper>
   );
 };
 
