@@ -40,22 +40,6 @@ export const BgColor = styled.div`
   }
 `;
 
-export const Form = styled.form`
-  padding: 15px;
-
-  input {
-    background-color: #333333;
-    border-radius: 5px;
-  }
-`;
-export const FormCheck = styled.div`
-  padding: 15px;
-
-  input {
-    background-color: #333333;
-    border-radius: 5px;
-  }
-`;
 interface IButtonCredit {
   active: string;
 }
@@ -105,6 +89,12 @@ export const FormContainer = styled.div`
   background-color: black;
   border-radius: 5px;
   color: white;
+  padding: 15px;
+
+  input {
+    background-color: #333333;
+    border-radius: 5px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -162,4 +152,8 @@ export const BtnBg = styled.button`
   a:visited {
     color: black;
   }
+`;
+
+export const Error = styled.p`
+  color: white;
 `;

@@ -105,7 +105,7 @@ const Home: React.FC = () => {
           </BgButton>
 
           {isLoading && (
-            <p className="d-flex justify-content-center">
+            <p className="d-flex justify-content-center mb-5 mt-5">
               {' '}
               <img src={r2d2} alt="loading..." />
             </p>

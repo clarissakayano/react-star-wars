@@ -74,6 +74,7 @@ export const FormProvider: React.FC<IFormProviderProps> = ({ children }) => {
           isLoading,
           pages,
           error,
+          currentPage,
           totalPages,
           fetchVehicles,
         }),

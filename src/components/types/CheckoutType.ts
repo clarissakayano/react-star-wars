@@ -16,6 +16,7 @@ export type FormType = {
   cartão: string;
   validade: string;
   código: string;
+  card_number: string;
 };
 
 export type NormalizedFormType = {

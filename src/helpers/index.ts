@@ -6,8 +6,8 @@ import { VehicleType } from 'components/types/VehicleType';
 export const normalizeFormData = (data: FormType): NormalizedFormType => ({
   ...data,
   phone: Number(data.phone),
-  cpf: data.cpf.length ? Number(data.cpf) : undefined,
-  cartão: data.cartão.length ? Number(data.cartão) : undefined,
+  cpf: Number(data.cpf),
+  card_number: data.card_number.length ? Number(data.card_number) : undefined,
 });
 
 export const urlToId = (url: string): string => url.split('/')[5];

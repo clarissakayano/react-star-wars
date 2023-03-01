@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
-import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { BiArrowBack } from 'react-icons/bi';
 import InputMask from 'react-input-mask';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import r2d2 from 'assets/r2d2.gif';
 
@@ -28,8 +27,7 @@ import {
   BtnBg,
   ButtonBank,
   ButtonCredit,
-  Form,
-  FormCheck,
+  Error,
   FormContainer,
   FormVehicule,
   Subtitle,
@@ -44,8 +42,8 @@ const Checkout: React.FC = () => {
   const [isInvalidCep, setIsInvalidCep] = useState(false);
   const { selectedVehicle, fetchVehicles } = useVehicles();
   const [payment, setPayment] = useState('');
-
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -58,10 +56,14 @@ const Checkout: React.FC = () => {
 
   const { id } = useParams();
 
-  const handleFormSubmit = useCallback((data: FormType) => {
-    normalizeFormData(data);
-    console.log('SUBMITED', data);
-  }, []);
+  const handleFormSubmit = useCallback(
+    (data: FormType) => {
+      navigate(payment === 'credit' ? `/confirm/` : `/bankConfirm/`);
+      normalizeFormData(data);
+      console.log('SUBMITED', data);
+    },
+    [id, navigate, payment],
+  );
 
   const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
 
@@ -112,256 +114,248 @@ const Checkout: React.FC = () => {
           </Link>
         </Container>
         <Container>
-          <Form onSubmit={handleSubmit(handleFormSubmit)}>
+          <form onSubmit={handleSubmit(handleFormSubmit)}>
             <Row className="row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-md-end">
               <Col>
-                <FormContainer>
-                  <FormCheck className="mb-3">
-                    <Subtitle>Informações Pessoais</Subtitle>
-                    <form>
-                      <div>
-                        <span>Nome:</span>
-                        <div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Digite o seu nome"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('name', {
-                              required: 'Informe seu nome',
-                              minLength: {
-                                value: 3,
-                                message:
-                                  'O nome precisa ter no mínimo 3 letras',
-                              },
-                            })}
-                          />
+                <FormContainer className="mb-3">
+                  <Subtitle>Informações Pessoais</Subtitle>
 
-                          {errors.name && <p>{errors.name.message}</p>}
-                        </div>
-                      </div>
-                      <div>
-                        <span>E-mail:</span>
-                        <div>
-                          <input
-                            type="email"
-                            className="form-control"
-                            placeholder="Digite o seu e-mail"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('email')}
-                          />
-                        </div>
-                      </div>
+                  <div>
+                    <span>Nome:</span>
+                    <div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Digite o seu nome"
+                        // eslint-disable-next-line react/jsx-props-no-spreading
+                        {...register('name')}
+                        required
+                      />
 
-                      <div>
-                        <span>Telefone</span>
-                        <div>
-                          <InputMask
-                            className="form-control"
-                            mask="(99) 99999-9999"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('phone')}
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                        <label htmlFor="cpf">CPF</label>
-                        <div>
-                          <InputMask
-                            className="form-control"
-                            mask="999-999-999-99"
-                            {...register('cpf')}
-                          />
-                        </div>
-                      </div>
-                      <button type="submit">enviar</button>
-                    </form>
-                  </FormCheck>
+                      {errors.name && <Error>{errors.name.message}</Error>}
+                    </div>
+                  </div>
+                  <div>
+                    <span>E-mail:</span>
+                    <div>
+                      <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Digite o seu e-mail"
+                        // eslint-disable-next-line react/jsx-props-no-spreading
+                        {...register('email')}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <span>Telefone</span>
+                    <div>
+                      <InputMask
+                        className="form-control"
+                        mask="(99) 99999-9999"
+                        // eslint-disable-next-line react/jsx-props-no-spreading
+                        {...register('phone')}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label htmlFor="cpf">CPF</label>
+                    <div>
+                      <InputMask
+                        className="form-control"
+                        mask="999-999-999-99"
+                        {...register('cpf')}
+                        required
+                      />
+                    </div>
+                  </div>
                 </FormContainer>
               </Col>
               <Col>
-                <FormContainer>
-                  <FormCheck className=" mb-3">
-                    <Subtitle>Endereço</Subtitle>
-                    <form>
-                      <div>
-                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                        <label htmlFor="cep">CEP</label>
+                <FormContainer className=" mb-3">
+                  <Subtitle>Endereço</Subtitle>
 
+                  <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label htmlFor="cep">CEP</label>
+
+                    <div>
+                      <InputMask
+                        className="form-control"
+                        mask="99999-999"
+                        {...register('cep', { required: 'informe o CEP' })}
+                      />
+                      {isLoadingAddress && (
+                        <span className="d-flex justify-content-center">
+                          <img src={r2d2} alt="loading..." />
+                        </span>
+                      )}
+                      {!isLoadingAddress && isInvalidCep && (
+                        <TextInvalid>CEP inválido</TextInvalid>
+                      )}
+                      {errors.cep && <p>{errors.cep.message}</p>}
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <label htmlFor="Logradouro">Logradouro</label>
+                    </div>
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder=""
+                      {...register('logradouro')}
+                    />
+                    <Row>
+                      <Col>
                         <div>
-                          <InputMask
-                            className="form-control"
-                            mask="99999-999"
-                            {...register('cep', { required: 'informe o CEP' })}
-                          />
-                          {isLoadingAddress && (
-                            <span className="d-flex justify-content-center">
-                              <img src={r2d2} alt="loading..." />
-                            </span>
-                          )}
-                          {!isLoadingAddress && isInvalidCep && (
-                            <TextInvalid>CEP inválido</TextInvalid>
-                          )}
-                          {errors.cep && <p>{errors.cep.message}</p>}
-                        </div>
-                      </div>
-                      <div>
-                        <div>
-                          <label htmlFor="Logradouro">Logradouro</label>
+                          <label htmlFor="Número">Número</label>
                         </div>
                         <input
-                          className="form-control"
                           type="text"
-                          placeholder=""
-                          {...register('logradouro')}
+                          placeholder="número"
+                          className="form-control"
+                          {...register('número')}
                         />
-                        <Row>
-                          <Col>
-                            <div>
-                              <label htmlFor="Número">Número</label>
-                            </div>
+                      </Col>
+                      <Col>
+                        <div>
+                          <label htmlFor="Complemento">Complemento</label>
+                          <div>
                             <input
-                              type="text"
-                              placeholder="número"
                               className="form-control"
-                              {...register('número')}
+                              type="text"
+                              placeholder="Complemento"
+                              {...register('complemento')}
                             />
-                          </Col>
-                          <Col>
-                            <div>
-                              <label htmlFor="Complemento">Complemento</label>
-                              <div>
-                                <input
-                                  className="form-control"
-                                  type="text"
-                                  placeholder="Complemento"
-                                  {...register('complemento')}
-                                />
-                              </div>
-                            </div>
-                          </Col>
-                        </Row>
-                        <div>
-                          <div>
-                            <label htmlFor="Bairro">Bairro</label>
                           </div>
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="bairro"
-                            {...register('bairro')}
-                          />
                         </div>
-                        <div>
-                          <label htmlFor="Cidade">Cidade</label>
-                        </div>
-                        <input
-                          className="form-control"
-                          type="text"
-                          placeholder="cidade"
-                          {...register('cidade')}
-                        />
-
-                        <div>
-                          <div>
-                            <label htmlFor="Estado">Estado</label>
-                          </div>
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="estado"
-                            {...register('estado')}
-                          />
-                        </div>
+                      </Col>
+                    </Row>
+                    <div>
+                      <div>
+                        <label htmlFor="Bairro">Bairro</label>
                       </div>
-                    </form>
-                  </FormCheck>
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="bairro"
+                        {...register('bairro')}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="Cidade">Cidade</label>
+                    </div>
+                    <input
+                      className="form-control"
+                      type="text"
+                      placeholder="cidade"
+                      {...register('cidade')}
+                    />
+
+                    <div>
+                      <div>
+                        <label htmlFor="Estado">Estado</label>
+                      </div>
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="estado"
+                        {...register('estado')}
+                      />
+                    </div>
+                  </div>
                 </FormContainer>
               </Col>
               <Col>
                 <FormContainer className="mb-2">
-                  <FormCheck>
-                    <Subtitle className="mb-3">Forma de Pagamento</Subtitle>
-                    <Row className="row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2">
-                      <Col className="d-flex justify-content-evenly mb-3">
-                        <ButtonCredit
-                          type="button"
-                          onClick={() => setPayment('credit')}
-                          active={payment}
-                        >
-                          Cartão de crédito
-                        </ButtonCredit>
-                      </Col>
-                      <Col>
-                        <ButtonBank
-                          type="button"
-                          onClick={() => setPayment('bank')}
-                          active={payment}
-                        >
-                          Boleto Bancário
-                        </ButtonBank>
-                      </Col>
-                    </Row>
+                  <Subtitle className="mb-3">Forma de Pagamento</Subtitle>
+                  <Row className="row-cols-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-2">
+                    <Col className="d-flex justify-content-evenly mb-3">
+                      <ButtonCredit
+                        type="button"
+                        onClick={() => setPayment('credit')}
+                        active={payment}
+                      >
+                        Cartão de crédito
+                      </ButtonCredit>
+                    </Col>
+                    <Col>
+                      <ButtonBank
+                        type="button"
+                        onClick={() => setPayment('bank')}
+                        active={payment}
+                      >
+                        Boleto Bancário
+                      </ButtonBank>
+                    </Col>
+                  </Row>
 
-                    {payment === 'credit' && (
-                      <form>
-                        <div>
-                          <label htmlFor="Nome do Titular">
-                            Nome do titular do Cartão
-                          </label>
-                        </div>
-                        <input
+                  {payment === 'credit' && (
+                    <div>
+                      <div>
+                        <label htmlFor="Nome do Titular">
+                          Nome do titular do Cartão
+                        </label>
+                      </div>
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Titular"
+                        {...register('name')}
+                        required
+                      />
+                      <div>
+                        <label htmlFor="Número do Cartão">
+                          Número do Cartão
+                        </label>
+                      </div>
+                      <div>
+                        <InputMask
                           className="form-control"
-                          type="text"
-                          placeholder="Titular"
-                          {...register('name')}
+                          mask="9999 9999 9999 9999"
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...register('card_number')}
+                          required
                         />
-                        <div>
-                          <label htmlFor="Número do Cartão">
-                            Número do Cartão
-                          </label>
-                        </div>
-                        <div>
-                          <InputMask
-                            className="form-control"
-                            mask="9999 9999 9999 9999"
-                            // eslint-disable-next-line react/jsx-props-no-spreading
-                            {...register('number')}
-                          />
-                        </div>
+                      </div>
 
-                        <Row className="row-cols-md-2">
-                          <Col>
+                      <Row className="row-cols-md-2">
+                        <Col>
+                          <div>
+                            <label htmlFor="Validade">Validade</label>
+                          </div>
+                          <div>
+                            <InputMask
+                              className="form-control"
+                              mask="99/99"
+                              // eslint-disable-next-line react/jsx-props-no-spreading
+                              {...register('validade')}
+                              required
+                            />
+                          </div>
+                        </Col>
+                        <Col>
+                          <div>
                             <div>
-                              <label htmlFor="Validade">Validade</label>
+                              <label htmlFor="Código de segurança">CVV</label>
                             </div>
-                            <div>
-                              <InputMask
-                                className="form-control"
-                                mask="99/99"
-                                // eslint-disable-next-line react/jsx-props-no-spreading
-                                {...register('number')}
-                              />
-                            </div>
-                          </Col>
-                          <Col>
-                            <div>
-                              <div>
-                                <label htmlFor="Código de segurança">CVV</label>
-                              </div>
-                              <InputMask
-                                className="form-control"
-                                mask="999"
-                                // eslint-disable-next-line react/jsx-props-no-spreading
-                                {...register('number')}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                      </form>
-                    )}
-                  </FormCheck>
+                            <InputMask
+                              className="form-control"
+                              mask="999"
+                              // eslint-disable-next-line react/jsx-props-no-spreading
+                              {...register('código')}
+                              required
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  )}
                 </FormContainer>
 
                 {selectedVehicle && (
@@ -382,12 +376,12 @@ const Checkout: React.FC = () => {
                           className="my-2"
                           disabled={hasErrors || !isDirty}
                         >
-                          <Link to="/confirm">Finalizar compra</Link>
+                          Finalizar compra
                         </BtnBg>
                       )}
                       {payment === 'bank' && (
                         <BtnBg type="submit" className="my-2">
-                          <Link to="/bankConfirm">Finalizar compra</Link>
+                          Finalizar compra
                         </BtnBg>
                       )}
                     </div>
@@ -395,7 +389,7 @@ const Checkout: React.FC = () => {
                 )}
               </Col>
             </Row>
-          </Form>
+          </form>
         </Container>
       </BgColor>
       <Footer />
