@@ -5,8 +5,8 @@ import { VehicleType } from 'components/types/VehicleType';
 
 export const normalizeFormData = (data: FormType): NormalizedFormType => ({
   ...data,
-  phone: Number(data.phone),
   cpf: Number(data.cpf),
+  phone: Number(data.phone),
   card_number: data.card_number.length ? Number(data.card_number) : undefined,
 });
 
