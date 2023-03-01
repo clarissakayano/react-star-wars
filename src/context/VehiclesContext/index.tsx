@@ -23,7 +23,7 @@ interface IContextProps {
   totalPages: number;
   vehicle: VehicleType;
   setSelectedVehicle: (vehicle: VehicleType) => void;
-  selectedVehicle: VehicleType | null;
+  selectedVehicle: VehicleType;
 }
 
 interface IVehiclesProviderProps {

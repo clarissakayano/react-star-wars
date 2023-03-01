@@ -62,7 +62,7 @@ const Checkout: React.FC = () => {
       normalizeFormData(data);
       console.log('SUBMITED', data);
     },
-    [id, navigate, payment],
+    [navigate, payment],
   );
 
   const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
@@ -219,7 +219,7 @@ const Checkout: React.FC = () => {
                           type="text"
                           placeholder="número"
                           className="form-control"
-                          {...register('número')}
+                          {...register('number')}
                         />
                       </Col>
                       <Col>

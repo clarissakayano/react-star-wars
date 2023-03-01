@@ -3,9 +3,6 @@ import { memo } from 'react';
 import { Container } from 'react-bootstrap';
 
 import logo from 'assets/logo.png';
-import SpaceM from 'assets/sppicture.png';
-
-import Main from 'components/Main';
 
 import { BannerM, BgColor } from './styles';
 

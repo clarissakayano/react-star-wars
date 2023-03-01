@@ -14,14 +14,7 @@ import VehicleCard from 'components/VehicleCard';
 
 import useTitle from 'hooks/useTitle';
 
-import {
-  ContainerCheck,
-  Subtitle,
-  Text1,
-  TextSub,
-  Title,
-  Title1,
-} from './styles';
+import { ContainerCheck, Title, Title1 } from './styles';
 
 const BankConfirm: React.FC = () => {
   const setTitle = useTitle();

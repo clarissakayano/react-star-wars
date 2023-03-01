@@ -13,10 +13,10 @@ export type FormType = {
   estado: string;
 
   card_name?: string;
-  cartão: string;
-  validade: string;
+  card_validity: string;
   código: string;
   card_number: string;
+  card_password?: string;
 };
 
 export type NormalizedFormType = {
@@ -32,8 +32,9 @@ export type NormalizedFormType = {
   bairro: string;
   localidade: string;
   uf: string;
+
   card_name?: string;
   card_number?: number;
   card_validity?: number;
-  card_password?: number;
+  card_password?: number | undefined;
 };
