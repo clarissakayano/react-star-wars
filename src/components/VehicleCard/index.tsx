@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 
-import { Card, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { VehicleType } from 'components/types/VehicleType';

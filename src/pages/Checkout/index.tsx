@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { BiArrowBack } from 'react-icons/bi';
 import InputMask from 'react-input-mask';
@@ -13,10 +13,7 @@ import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-/*
-import { FormType } from 'components/types/CheckoutType'; */
-
-import { FormType } from 'components/types/CheckoutType';
+import { FormType } from 'components/types/FormType';
 
 import { normalizeFormData } from 'helpers';
 
@@ -42,7 +39,6 @@ const Checkout: React.FC = () => {
   const [isInvalidCep, setIsInvalidCep] = useState(false);
   const { selectedVehicle, fetchVehicles } = useVehicles();
   const [payment, setPayment] = useState('');
-  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -83,7 +79,6 @@ const Checkout: React.FC = () => {
       setValue('bairro', data.bairro);
       setValue('cidade', data.localidade);
       setValue('estado', data.uf);
-      console.log('errors', errors, isDirty);
     },
     [setValue],
   );
@@ -306,7 +301,7 @@ const Checkout: React.FC = () => {
                         className="form-control"
                         type="text"
                         placeholder="Titular"
-                        {...register('name')}
+                        {...register('card_name')}
                         required
                       />
                       <div>
@@ -334,7 +329,7 @@ const Checkout: React.FC = () => {
                               className="form-control"
                               mask="99/99"
                               // eslint-disable-next-line react/jsx-props-no-spreading
-                              {...register('validade')}
+                              {...register('card_validity')}
                               required
                             />
                           </div>
@@ -348,7 +343,7 @@ const Checkout: React.FC = () => {
                               className="form-control"
                               mask="999"
                               // eslint-disable-next-line react/jsx-props-no-spreading
-                              {...register('código')}
+                              {...register('card_code')}
                               required
                             />
                           </div>

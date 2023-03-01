@@ -14,9 +14,9 @@ export type FormType = {
 
   card_name?: string;
   card_validity: string;
-  código: string;
   card_number: string;
-  card_password?: string;
+  card_code?: string;
+  card_password: string;
 };
 
 export type NormalizedFormType = {
@@ -24,10 +24,9 @@ export type NormalizedFormType = {
   email: string;
   phone: number;
   cpf: number;
-  cnpj: number;
   cep: number;
   logradouro: string;
-  number: number;
+  number?: number;
   complement: string;
   bairro: string;
   localidade: string;
@@ -36,5 +35,5 @@ export type NormalizedFormType = {
   card_name?: string;
   card_number?: number;
   card_validity?: number;
-  card_password?: number | undefined;
+  card_code: number;
 };

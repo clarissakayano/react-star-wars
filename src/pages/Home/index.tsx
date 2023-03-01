@@ -50,7 +50,7 @@ const Home: React.FC = () => {
 
   const handleSearch = useCallback(
     () => fetchVehicles(1, search),
-    [fetchVehicles, search],
+    [fetchVehicles, search] ,
   );
 
   const handleClearSearch = useCallback(() => {
@@ -114,8 +114,8 @@ const Home: React.FC = () => {
           {!isLoading && !error && (
             <Container className="">
               <Row className="row-cols row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4  justify-content-center">
-                {vehicles.map((vehicle, i) => (
-                  <Col className="d-md-flex" key={i}>
+                {vehicles.map((vehicle) => (
+                  <Col className="d-md-flex" key={vehicle.id}>
                     <VehicleCard
                       vehicle={vehicle}
                       onClick={() => setSelectedVehicle(vehicle)}

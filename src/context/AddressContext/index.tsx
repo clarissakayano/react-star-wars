@@ -6,50 +6,44 @@ import {
   useState,
 } from 'react';
 
-import { useForm, UseFormSetValue } from 'react-hook-form';
+import { AddressType } from 'components/types/AddressType';
 
-import cepApi from 'services/cepApi';
-
-import { AddressType } from 'types/CheckoutType';
+import CepApi from 'services/CepApi';
 
 interface IContextProps {
-  fetchAddress: (cep: string) => Promise<void>;
-  isInvalidCep: boolean;
-  isLoadingAddress: boolean;
-  address: CheckoutType | null;
+  address: AddressType | undefined;
+  errorCep: string | null;
+  isLoadingCep: boolean;
+  fetchAddress: (cep: string, onSuccess?: () => void) => Promise<void>;
 }
 
-interface IAddressProviderProps {
+interface IvehiclesProviderProps {
   children: React.ReactNode;
 }
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps);
 
-export const AddressProvider: React.FC<IAddressProviderProps> = ({
+export const AdressProvider: React.FC<IvehiclesProviderProps> = ({
   children,
 }) => {
-  const [isInvalidCep, setIsInvalidCep] = useState(true);
-  const [address, setAddress] = useState<AddressType | null>(null);
-  const [isLoadingAddress, setIsLoadingAddress] = useState(false);
+  const [address, setAdress] = useState<AddressType | undefined>();
+  const [isLoadingCep, setIsLoadingCep] = useState(false);
+  const [errorCep, setErrorCep] = useState<string | null>(null);
 
   const fetchAddress = useCallback(
-    async (cep: string) => {
-      setIsInvalidCep(false);
-      setIsLoadingAddress(true);
+    async (cep: string, onSuccess?: () => void) => {
+      setIsLoadingCep(true);
+      setErrorCep(null);
       try {
-        const { data } = await cepApi.get(`/${cep}/json/`);
-        setAddress(data);
-        if (data.erro) {
-          setIsInvalidCep(true);
-        }
-        setIsLoadingAddress(false);
-      } catch (e) {
-        setIsInvalidCep(isInvalidCep);
+        const { data } = await CepApi.get(`/${cep}/json/`);
+        setAdress(data);
+        onSuccess?.();
+      } catch {
+        setErrorCep('Erro: Endereço não encontrado');
       } finally {
-        setIsLoadingAddress(false);
+        setIsLoadingCep(false);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -57,12 +51,12 @@ export const AddressProvider: React.FC<IAddressProviderProps> = ({
     <ReactContext.Provider
       value={useMemo(
         () => ({
-          fetchAddress,
-          isInvalidCep,
-          isLoadingAddress,
           address,
+          isLoadingCep,
+          errorCep,
+          fetchAddress,
         }),
-        [fetchAddress, isInvalidCep, isLoadingAddress, address],
+        [address, isLoadingCep, errorCep, fetchAddress],
       )}
     >
       {children}
@@ -71,11 +65,12 @@ export const AddressProvider: React.FC<IAddressProviderProps> = ({
 };
 
 export const useAddress = (): IContextProps => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const context = useContext(ReactContext);
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('useMyCustomHook must be within MyCustomProvider');
+    console.error('usevehicles must be within CharatersProvider');
   }
 
   return context;

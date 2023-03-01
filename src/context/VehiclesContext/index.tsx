@@ -21,7 +21,6 @@ interface IContextProps {
   fetchVehicle: (charId: number | string) => Promise<void>;
   isLoading: boolean;
   totalPages: number;
-  vehicle: VehicleType;
   setSelectedVehicle: (vehicle: VehicleType) => void;
   selectedVehicle: VehicleType;
 }
