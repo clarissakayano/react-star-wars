@@ -15,8 +15,7 @@ export type FormType = {
   card_name?: string;
   card_validity: string;
   card_number: string;
-  card_code?: string;
-  card_password: string;
+  card_code: string;
 };
 
 export type NormalizedFormType = {

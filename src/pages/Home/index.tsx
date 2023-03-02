@@ -50,7 +50,7 @@ const Home: React.FC = () => {
 
   const handleSearch = useCallback(
     () => fetchVehicles(1, search),
-    [fetchVehicles, search] ,
+    [fetchVehicles, search],
   );
 
   const handleClearSearch = useCallback(() => {

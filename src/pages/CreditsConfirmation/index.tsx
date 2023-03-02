@@ -1,34 +1,21 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 import { Card, Container } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import { BiArrowBack } from 'react-icons/bi';
 import { Link, useParams } from 'react-router-dom';
 
 import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
-import { BgColor } from 'components/Footer/styles';
 import Header from 'components/Header';
 import { Wrapper } from 'components/styles/GlobalStyles';
-import { VehicleType } from 'components/types/VehicleType';
-import VehicleCard from 'components/VehicleCard';
-
-import { normalizeFormData } from 'helpers';
 
 import useTitle from 'hooks/useTitle';
 
-import {
-  ContainerCheck,
-  Subtitle,
-  Text1,
-  TextSub,
-  Title,
-  Title1,
-} from './styles';
+import { ContainerCheck, Title, Title1 } from './styles';
 
 const CreditsConfirm: React.FC = () => {
-  const { selectedVehicle, fetchVehicle, vehicle } = useVehicles();
+  const { selectedVehicle, fetchVehicle } = useVehicles();
   const setTitle = useTitle();
 
   const { id } = useParams();

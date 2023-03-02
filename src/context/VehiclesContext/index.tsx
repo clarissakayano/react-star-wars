@@ -56,10 +56,8 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
 
       setVehicles(normalizeVehicleData(results));
       setTotalPages(Math.ceil(count / limit));
-      console.log('search', search);
-      console.log('data', results);
     } catch {
-      console.error('DEU ERRO FectchVehicles');
+      setError('Algo de errado não está certo');
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +65,6 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
 
   useEffect(() => {
     fetchVehicles(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchVehicles]);
 
   const fetchVehicle = useCallback(async (charId: number | string) => {
@@ -78,7 +75,7 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
 
       setSelectedVehicle(data);
     } catch {
-      console.error('DEU ERRO');
+      setError('Não foi possível carregar o veículo');
     } finally {
       setIsLoading(false);
     }
@@ -101,13 +98,13 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
         }),
         [
           vehicles,
+          selectedVehicle,
+          currentPage,
           isLoading,
           pages,
-          currentPage,
           error,
-          fetchVehicles,
           totalPages,
-          selectedVehicle,
+          fetchVehicles,
           fetchVehicle,
           setSelectedVehicle,
         ],
