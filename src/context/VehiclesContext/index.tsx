@@ -17,12 +17,12 @@ interface IContextProps {
   vehicles: VehicleType[];
   currentPage: number;
   error: string | null;
-  fetchVehicles: () => Promise<void>;
+  fetchVehicles: (page: number, search?: string) => Promise<void>;
   fetchVehicle: (charId: number | string) => Promise<void>;
   isLoading: boolean;
   totalPages: number;
-  setSelectedVehicle: (vehicle: VehicleType) => void;
-  selectedVehicle: VehicleType;
+  setSelectedVehicle: (vehicle: VehicleType | null) => void;
+  selectedVehicle: VehicleType | null;
 }
 
 interface IVehiclesProviderProps {
@@ -35,7 +35,9 @@ export const VehiclesProvider: React.FC<IVehiclesProviderProps> = ({
   children,
 }) => {
   const [vehicles, setVehicles] = useState<VehicleType[]>([]);
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleType[]>([]);
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleType | null>(
+    null,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [pages, setPages] = useState(0);

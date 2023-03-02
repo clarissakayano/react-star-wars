@@ -12,9 +12,9 @@ import CepApi from 'services/CepApi';
 
 interface IContextProps {
   address: AddressType | undefined;
-  errorCep: string | null;
+  isInvalidCep: boolean;
   isLoadingCep: boolean;
-  fetchAddress: (cep: string, onSuccess?: () => void) => Promise<void>;
+  fetchAddress: (cep: string) => Promise<void>;
 }
 
 interface IvehiclesProviderProps {
@@ -23,27 +23,31 @@ interface IvehiclesProviderProps {
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps);
 
-export const AdressProvider: React.FC<IvehiclesProviderProps> = ({
+export const AddressProvider: React.FC<IvehiclesProviderProps> = ({
   children,
 }) => {
-  const [address, setAdress] = useState<AddressType | undefined>();
-  const [isLoadingCep, setIsLoadingCep] = useState(false);
-  const [errorCep, setErrorCep] = useState<string | null>(null);
+  const [address, setAddress] = useState<AddressType | undefined>();
+  const [isLoadingCep, setIsLoadingAddress] = useState(false);
+  const [isInvalidCep, setIsInvalidCep] = useState(true);
 
   const fetchAddress = useCallback(
-    async (cep: string, onSuccess?: () => void) => {
-      setIsLoadingCep(true);
-      setErrorCep(null);
+    async (cep: string) => {
+      setIsInvalidCep(false);
+      setIsLoadingAddress(true);
       try {
         const { data } = await CepApi.get(`/${cep}/json/`);
-        setAdress(data);
-        onSuccess?.();
-      } catch {
-        setErrorCep('Erro: Endereço não encontrado');
+        setAddress(data);
+        if (data.erro) {
+          setIsInvalidCep(true);
+        }
+        setIsLoadingAddress(false);
+      } catch (e) {
+        setIsInvalidCep(isInvalidCep);
       } finally {
-        setIsLoadingCep(false);
+        setIsLoadingAddress(false);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -53,10 +57,10 @@ export const AdressProvider: React.FC<IvehiclesProviderProps> = ({
         () => ({
           address,
           isLoadingCep,
-          errorCep,
+          isInvalidCep,
           fetchAddress,
         }),
-        [address, isLoadingCep, errorCep, fetchAddress],
+        [address, isLoadingCep, isInvalidCep, fetchAddress],
       )}
     >
       {children}
@@ -70,7 +74,7 @@ export const useAddress = (): IContextProps => {
 
   if (!context) {
     // eslint-disable-next-line no-console
-    console.error('usevehicles must be within CharatersProvider');
+    console.error('useAddress must be within AddressProvider');
   }
 
   return context;

@@ -8,7 +8,9 @@ const Config = {
     version: import.meta.env.PACKAGE_VERSION,
   },
   i18n: {
-    debugg: import.meta.env.VITE_I18N_DEBBUG,
+    debbug: JSON.parse(
+      (import.meta.env.VITE_I18N_DEBBUG ?? 'false').toLocaleLowerCase(),
+    ),
   },
 };
 

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'services/i18n';
 
+import { AddressProvider } from 'context/AddressContext';
 import { VehiclesProvider } from 'context/VehiclesContext';
 
 import App from './App';
@@ -12,9 +13,11 @@ import App from './App';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Suspense>
-      <VehiclesProvider>
-        <App />
-      </VehiclesProvider>
+      <AddressProvider>
+        <VehiclesProvider>
+          <App />
+        </VehiclesProvider>
+      </AddressProvider>
     </Suspense>
   </React.StrictMode>,
 );

@@ -2,11 +2,11 @@ import { memo } from 'react';
 
 import { BrowserRouter, Routes as Switch, Route } from 'react-router-dom';
 
-import Home from 'pages/Home';
-import NotFound from 'pages/NotFound';
+import BankConfirm from 'pages/BankConfirm';
 import Checkout from 'pages/Checkout';
 import CreditsConfirmation from 'pages/CreditsConfirmation';
-import BankConfirm from 'pages/BankConfirm';
+import Home from 'pages/Home';
+import NotFound from 'pages/NotFound';
 
 const Routes: React.FC = () => {
   return (

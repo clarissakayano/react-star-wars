@@ -1,20 +1,9 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
-import axios from 'axios';
-import {
-  Col,
-  Container,
-  Form,
-  FormControl,
-  InputGroup,
-  Row,
-} from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
+import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import r2d2 from 'assets/r2d2.gif';
-
-import Config from 'Config';
 
 import { useVehicles } from 'context/VehiclesContext';
 
@@ -57,8 +46,6 @@ const Home: React.FC = () => {
     fetchVehicles(1);
     setSearch('');
   }, [fetchVehicles]);
-
-  console.log(vehicles);
 
   return (
     <Wrapper>
