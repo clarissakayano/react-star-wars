@@ -215,7 +215,7 @@ const Checkout: React.FC = () => {
                               className="form-control"
                               type="text"
                               placeholder="Complemento"
-                              {...register('complemento')}
+                              {...register('complement')}
                             />
                           </div>
                         </div>

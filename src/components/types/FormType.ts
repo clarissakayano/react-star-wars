@@ -7,18 +7,16 @@ export type FormType = {
 
   cep: string;
   logradouro: string;
+  number: string;
+  complement: string;
+  bairro: string;
   localidade: string;
   uf: string;
-  number: string;
-  complemento: string;
-  bairro: string;
-  cidade: string;
-  estado: string;
 
   card_name?: string;
-  card_validity: string;
-  card_number: string;
-  card_password: string;
+  card_number?: string;
+  card_validity?: string;
+  card_code?: string;
 };
 
 export type NormalizedFormType = {
@@ -30,16 +28,14 @@ export type NormalizedFormType = {
 
   cep: number;
   logradouro: string;
-  number?: number;
+  number: number;
   complement: string;
   bairro: string;
-  cidade: string;
-  estado: string;
   localidade: string;
   uf: string;
 
   card_name?: string;
   card_number?: number;
   card_validity?: number;
-  card_password: number;
+  card_code?: number;
 };
