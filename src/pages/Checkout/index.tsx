@@ -9,6 +9,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import r2d2 from 'assets/r2d2.gif';
 
+import { useAddress } from 'context/AddressContext';
 import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
@@ -35,9 +36,9 @@ import {
 
 const Checkout: React.FC = () => {
   const [lastCep, setLastCep] = useState('');
-  const [isLoadingAddress, setIsLoadingAddress] = useState(false);
-  const [isInvalidCep, setIsInvalidCep] = useState(false);
   const { selectedVehicle, fetchVehicles } = useVehicles();
+  const { fetchAddress, isInvalidCep, isLoadingAddress, address } =
+    useAddress();
   const [payment, setPayment] = useState('');
   const navigate = useNavigate();
 
@@ -65,23 +66,12 @@ const Checkout: React.FC = () => {
 
   const cepValue = watch('cep');
 
-  const fetchAddress = useCallback(
-    async (cep: string) => {
-      setIsInvalidCep(false);
-      setIsLoadingAddress(true);
-      const { data } = await cepApi.get(`/${cep}/json/`);
-      if (data.erro) {
-        setIsInvalidCep(true);
-      }
-      setIsLoadingAddress(false);
-
-      setValue('logradouro', data.logradouro);
-      setValue('bairro', data.bairro);
-      setValue('cidade', data.localidade);
-      setValue('estado', data.uf);
-    },
-    [setValue],
-  );
+  useEffect(() => {
+    setValue('logradouro', String(address?.logradouro ?? ''));
+    setValue('bairro', String(address?.bairro ?? ''));
+    setValue('localidade', String(address?.localidade ?? ''));
+    setValue('uf', String(address?.uf ?? ''));
+  }, [address, setValue]);
 
   useEffect(() => {
     const sanitizedCEP = cepValue?.replaceAll(/\D/g, '');
@@ -249,7 +239,7 @@ const Checkout: React.FC = () => {
                       className="form-control"
                       type="text"
                       placeholder="cidade"
-                      {...register('cidade')}
+                      {...register('localidade')}
                     />
 
                     <div>
@@ -260,7 +250,7 @@ const Checkout: React.FC = () => {
                         className="form-control"
                         type="text"
                         placeholder="estado"
-                        {...register('estado')}
+                        {...register('uf')}
                       />
                     </div>
                   </div>

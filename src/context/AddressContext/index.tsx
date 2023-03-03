@@ -13,7 +13,7 @@ import CepApi from 'services/CepApi';
 interface IContextProps {
   address: AddressType | undefined;
   isInvalidCep: boolean;
-  isLoadingCep: boolean;
+  isLoadingAddress: boolean;
   fetchAddress: (cep: string) => Promise<void>;
 }
 
@@ -27,7 +27,7 @@ export const AddressProvider: React.FC<IvehiclesProviderProps> = ({
   children,
 }) => {
   const [address, setAddress] = useState<AddressType | undefined>();
-  const [isLoadingCep, setIsLoadingAddress] = useState(false);
+  const [isLoadingAddress, setIsLoadingAddress] = useState(false);
   const [isInvalidCep, setIsInvalidCep] = useState(true);
 
   const fetchAddress = useCallback(
@@ -56,11 +56,11 @@ export const AddressProvider: React.FC<IvehiclesProviderProps> = ({
       value={useMemo(
         () => ({
           address,
-          isLoadingCep,
+          isLoadingAddress,
           isInvalidCep,
           fetchAddress,
         }),
-        [address, isLoadingCep, isInvalidCep, fetchAddress],
+        [address, isLoadingAddress, isInvalidCep, fetchAddress],
       )}
     >
       {children}
