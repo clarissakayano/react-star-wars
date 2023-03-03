@@ -7,10 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
-import { BgColor } from 'components/Footer/styles';
 import Header from 'components/Header';
-import { VehicleType } from 'components/types/VehicleType';
-import VehicleCard from 'components/VehicleCard';
 
 import useTitle from 'hooks/useTitle';
 
@@ -51,7 +48,7 @@ const BankConfirm: React.FC = () => {
                 Corellia Mining Corporation
               </Card.Subtitle>
               <Title className="d-flex align-items-left mx-2">
-                {selectedVehicle.name}
+                {selectedVehicle?.name}
               </Title>
               <Title className="d-flex justify-content-center">
                 Pedido realizado com sucesso!
