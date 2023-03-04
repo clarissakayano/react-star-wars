@@ -19,6 +19,8 @@ import { FormType } from 'components/types/FormType';
 
 import { normalizeFormData } from 'helpers';
 
+import useTitle from 'hooks/useTitle';
+
 import {
   BgColor,
   BtnBg,
@@ -82,6 +84,12 @@ const Checkout: React.FC = () => {
   /*
   setValue('Logradouro', address?.Logradouro ?? '');
 */
+
+  const setTitle = useTitle();
+
+  useEffect(() => {
+    setTitle(`Home `); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrapper>

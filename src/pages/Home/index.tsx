@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
@@ -46,6 +46,12 @@ const Home: React.FC = () => {
     fetchVehicles(1);
     setSearch('');
   }, [fetchVehicles]);
+
+  const setTitle = useTitle();
+
+  useEffect(() => {
+    setTitle(`Home `); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrapper>
