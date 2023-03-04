@@ -88,7 +88,7 @@ const Checkout: React.FC = () => {
   const setTitle = useTitle();
 
   useEffect(() => {
-    setTitle(`Home `); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTitle(`Checkout `); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
