@@ -50,7 +50,7 @@ const Home: React.FC = () => {
   const setTitle = useTitle();
 
   useEffect(() => {
-    setTitle(`Home `); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTitle(`Star Wars`); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -129,8 +129,8 @@ const Home: React.FC = () => {
             />
           )}
         </Container>
-        <Footer />
       </BgColor>
+      <Footer />
     </Wrapper>
   );
 };
