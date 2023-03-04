@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
 html, body #root {
     min-height: 100vh;
+    background-color: #282a36;
 }
 
 
@@ -37,4 +38,5 @@ export const Wrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #282a36;
 `;

@@ -14,11 +14,10 @@ import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import { Wrapper } from 'components/styles/GlobalStyles';
 import { FormType } from 'components/types/FormType';
 
 import { normalizeFormData } from 'helpers';
-
-import cepApi from 'services/CepApi';
 
 import {
   BgColor,
@@ -36,7 +35,7 @@ import {
 
 const Checkout: React.FC = () => {
   const [lastCep, setLastCep] = useState('');
-  const { selectedVehicle, fetchVehicles } = useVehicles();
+  const { selectedVehicle } = useVehicles();
   const { fetchAddress, isInvalidCep, isLoadingAddress, address } =
     useAddress();
   const [payment, setPayment] = useState('');
@@ -49,7 +48,6 @@ const Checkout: React.FC = () => {
     watch,
     setValue,
   } = useForm<FormType>();
-  console.log('ERRORS', errors);
 
   const { id } = useParams();
 
@@ -57,7 +55,6 @@ const Checkout: React.FC = () => {
     (data: FormType) => {
       navigate(payment === 'credit' ? `/confirm/` : `/bankConfirm/`);
       normalizeFormData(data);
-      console.log('SUBMITED', data);
     },
     [navigate, payment],
   );
@@ -87,7 +84,7 @@ const Checkout: React.FC = () => {
 */
 
   return (
-    <>
+    <Wrapper>
       <BgColor>
         <Header />
         <Container className="my-4">
@@ -378,7 +375,7 @@ const Checkout: React.FC = () => {
         </Container>
       </BgColor>
       <Footer />
-    </>
+    </Wrapper>
   );
 };
 

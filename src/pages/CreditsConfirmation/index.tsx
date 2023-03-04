@@ -41,7 +41,7 @@ const CreditsConfirm: React.FC = () => {
               </Title1>
             </Link>
           </Container>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center my-5">
             <Card
               className="mb-5"
               style={{

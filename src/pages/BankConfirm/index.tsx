@@ -8,6 +8,7 @@ import { useVehicles } from 'context/VehiclesContext';
 
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import { Wrapper } from 'components/styles/GlobalStyles';
 
 import useTitle from 'hooks/useTitle';
 
@@ -27,7 +28,7 @@ const BankConfirm: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <ContainerCheck>
         <Header />
         <Container className="my-3">
@@ -38,7 +39,7 @@ const BankConfirm: React.FC = () => {
             </Title1>
           </Link>
         </Container>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center my-5">
           <Card
             className="mb-5"
             style={{ width: '40rem', backgroundColor: 'black', color: 'white' }}
@@ -61,7 +62,7 @@ const BankConfirm: React.FC = () => {
         </div>
       </ContainerCheck>
       <Footer />
-    </>
+    </Wrapper>
   );
 };
 
