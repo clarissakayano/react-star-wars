@@ -12,7 +12,7 @@ import { Wrapper } from 'components/styles/GlobalStyles';
 
 import useTitle from 'hooks/useTitle';
 
-import { ContainerCheck, Title, Title1 } from './styles';
+import { Confirm, ContainerCheck, Title, Title1 } from './styles';
 
 const CreditsConfirm: React.FC = () => {
   const { selectedVehicle, fetchVehicle } = useVehicles();
@@ -57,9 +57,9 @@ const CreditsConfirm: React.FC = () => {
                 <Title className="d-flex align-items-left">
                   {selectedVehicle?.name}
                 </Title>
-                <Title className="d-flex justify-content-center">
+                <Confirm className="d-flex justify-content-center">
                   Compra realizada com sucesso!
-                </Title>
+                </Confirm>
                 <div>
                   <p className="d-flex justify-content-center">
                     Confirmamos o seu pedido. Em breve você receberá um e-mail

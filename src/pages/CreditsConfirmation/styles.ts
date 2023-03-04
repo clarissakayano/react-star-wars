@@ -23,6 +23,15 @@ export const Title = styled.p`
   font-size: 30px;
   margin-left: 15px;
   border-style: none;
+  font-family: Helvetica Neue;
+  font-weight: 700;
+`;
+
+export const Confirm = styled.p`
+  color: yellow;
+  font-size: 30px;
+  margin-left: 15px;
+  border-style: none;
 `;
 
 export const ContainerCheck = styled.div`
