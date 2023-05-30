@@ -31,6 +31,11 @@ export const BgColor = styled.div`
     padding: 4px;
     margin-top: 15px;
   }
+
+  .notfound {
+    color: white;
+    font-size: 20px;
+  }
 `;
 
 export const BgButton = styled.section`

@@ -50,7 +50,7 @@ const Home: React.FC = () => {
   const setTitle = useTitle();
 
   useEffect(() => {
-    setTitle(`Star Wars`); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTitle(`Space Motors`); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -115,6 +115,9 @@ const Home: React.FC = () => {
                     />
                   </Col>
                 ))}
+                {!isLoading && !error && vehicles.length === 0 && (
+                  <p className="notfound">Nenhum resultado encontrado</p>
+                )}
               </Row>
             </Container>
           )}

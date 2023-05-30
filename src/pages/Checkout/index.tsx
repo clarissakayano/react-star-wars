@@ -88,7 +88,7 @@ const Checkout: React.FC = () => {
   const setTitle = useTitle();
 
   useEffect(() => {
-    setTitle(`Checkout `); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTitle(`Checkout`); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -157,7 +157,7 @@ const Checkout: React.FC = () => {
                     <div>
                       <InputMask
                         className="form-control"
-                        mask="999-999-999-99"
+                        mask="999.999.999-99"
                         {...register('cpf')}
                         required
                       />
