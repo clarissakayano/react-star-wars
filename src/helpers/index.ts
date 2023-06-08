@@ -1,3 +1,5 @@
+import slugify from 'slugify';
+
 import { FormType, NormalizedFormType } from 'components/types/FormType';
 import { VehicleType } from 'components/types/VehicleType';
 
@@ -20,3 +22,12 @@ export const normalizeFormData = (data: FormType): NormalizedFormType => ({
 export const urlToId = (url: string): string => url.split('/')[5];
 export const normalizeVehicleData = (vehicles: VehicleType[]): VehicleType[] =>
   vehicles.map((vehicle) => ({ ...vehicle, id: urlToId(vehicle.url) }));
+
+export const strToSlug = (str: string): string =>
+  slugify(str, {
+    remove: /[^0-9a-zA-Z\s]/gim,
+    lower: true,
+    trim: true,
+  });
+
+export const normalizeId = (str: string): string => str.split('/')[5];

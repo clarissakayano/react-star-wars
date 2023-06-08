@@ -24,7 +24,7 @@ const BankConfirm: React.FC = () => {
     fetchVehicle(Number(id)); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   useEffect(() => {
-    setTitle(`Confirmação `); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTitle(`Confirmação`); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

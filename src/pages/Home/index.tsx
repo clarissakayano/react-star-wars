@@ -48,11 +48,6 @@ const Home: React.FC = () => {
   }, [fetchVehicles]);
 
   const setTitle = useTitle();
-
-  useEffect(() => {
-    setTitle(`Space Motors`); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Wrapper>
       <Header />

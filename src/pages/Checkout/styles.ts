@@ -7,6 +7,7 @@ export const BgColor = styled.div`
   label {
     font-family: 'adobe-clean', sans-serif;
     font-weight: 700;
+    color: white;
   }
 
   .button {

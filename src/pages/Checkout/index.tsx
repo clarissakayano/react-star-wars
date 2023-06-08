@@ -37,7 +37,7 @@ import {
 
 const Checkout: React.FC = () => {
   const [lastCep, setLastCep] = useState('');
-  const { selectedVehicle } = useVehicles();
+  const { selectedVehicle, fetchVehicle } = useVehicles();
   const { fetchAddress, isInvalidCep, isLoadingAddress, address } =
     useAddress();
   const [payment, setPayment] = useState('');
@@ -51,11 +51,11 @@ const Checkout: React.FC = () => {
     setValue,
   } = useForm<FormType>();
 
-  const { id } = useParams();
+  const { id, name } = useParams();
 
   const handleFormSubmit = useCallback(
     (data: FormType) => {
-      navigate(payment === 'credit' ? `/confirm/` : `/bankConfirm/`);
+      navigate(payment === 'credit' ? `/confirm/` : `/Confirm/`);
       normalizeFormData(data);
     },
     [navigate, payment],
@@ -85,11 +85,15 @@ const Checkout: React.FC = () => {
   setValue('Logradouro', address?.Logradouro ?? '');
 */
 
+  useEffect(() => {
+    if (id) fetchVehicle(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
   const setTitle = useTitle();
 
   useEffect(() => {
-    setTitle(`Checkout`); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setTitle(`Checkout |  ${name}`); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name]);
 
   return (
     <Wrapper>
@@ -116,7 +120,6 @@ const Checkout: React.FC = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Digite o seu nome"
                         // eslint-disable-next-line react/jsx-props-no-spreading
                         {...register('name')}
                         required
@@ -131,7 +134,6 @@ const Checkout: React.FC = () => {
                       <input
                         type="email"
                         className="form-control"
-                        placeholder="Digite o seu e-mail"
                         // eslint-disable-next-line react/jsx-props-no-spreading
                         {...register('email')}
                         required
@@ -181,12 +183,15 @@ const Checkout: React.FC = () => {
                       />
                       {isLoadingAddress && (
                         <span className="d-flex justify-content-center">
-                          <img src={r2d2} alt="loading..." />
+                          <div
+                            className="spinner-border text-warning"
+                            role="status"
+                          >
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
                         </span>
                       )}
-                      {!isLoadingAddress && isInvalidCep && (
-                        <TextInvalid>CEP inválido</TextInvalid>
-                      )}
+
                       {errors.cep && <p>{errors.cep.message}</p>}
                     </div>
                   </div>
@@ -207,9 +212,10 @@ const Checkout: React.FC = () => {
                         </div>
                         <input
                           type="text"
-                          placeholder="número"
                           className="form-control"
-                          {...register('number')}
+                          {...register('number', {
+                            required: 'informe o Número',
+                          })}
                         />
                       </Col>
                       <Col>
@@ -219,7 +225,6 @@ const Checkout: React.FC = () => {
                             <input
                               className="form-control"
                               type="text"
-                              placeholder="Complemento"
                               {...register('complement')}
                             />
                           </div>
@@ -233,7 +238,6 @@ const Checkout: React.FC = () => {
                       <input
                         className="form-control"
                         type="text"
-                        placeholder="bairro"
                         {...register('bairro')}
                       />
                     </div>
@@ -243,7 +247,6 @@ const Checkout: React.FC = () => {
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="cidade"
                       {...register('localidade')}
                     />
 
@@ -358,7 +361,6 @@ const Checkout: React.FC = () => {
                       </Subtitle>
                       <Subtitle>¢{selectedVehicle?.cost_in_credits}</Subtitle>
                     </Container>
-
                     <div className="my-1 px-3 py-3 ">
                       {payment === 'credit' && (
                         <BtnBg

@@ -13,7 +13,7 @@ const Routes: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" element={<Home />} />
-        <Route path="/checkout/:id" element={<Checkout />} />
+        <Route path=":id/:name" element={<Checkout />} />
         <Route path="/confirm" element={<CreditsConfirmation />} />
         <Route path="/bankConfirm" element={<BankConfirm />} />
         <Route path="*" element={<NotFound />} />

@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 
 import { VehicleType } from 'components/types/VehicleType';
 
-import { CardVehicle, Text1, Title } from './styles';
+import { normalizeId, strToSlug } from 'helpers';
+
+import { CardVehicle, Text1, Title, VehicleLink } from './styles';
 
 interface IVehicleCardProps {
   vehicle: VehicleType;
@@ -20,9 +22,13 @@ const VehicleCard: React.FC<IVehicleCardProps> = ({ vehicle, onClick }) => {
   return (
     <CardVehicle onClick={onClick} className="w-100 d-md-flex mb-3">
       <Text1 className="mt-3 mx-2">{vehicle.manufacturer}</Text1>
-      <Link style={{ textDecoration: 'none' }} to={`checkout/${vehicle.id}`}>
+      <VehicleLink
+        style={{ textDecoration: 'none' }}
+        to={`/${normalizeId(vehicle.url)}/${strToSlug(vehicle.name)}`}
+        disabled={vehicle.cost_in_credits}
+      >
         <Title className="d-flex  mx-2">{vehicle.name}</Title>
-      </Link>
+      </VehicleLink>
       <Table className="">
         <tbody>
           <tr>

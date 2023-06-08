@@ -21,7 +21,7 @@ const CreditsConfirm: React.FC = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    setTitle(`Confirmação `); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTitle(`Confirmação`); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -34,12 +34,12 @@ const CreditsConfirm: React.FC = () => {
         <Header />
         <main>
           <Container className="my-3">
-            <Link style={{ textDecoration: 'none' }} to="/">
+            <a style={{ textDecoration: 'none' }} href="/">
               <Title1>
                 <BiArrowBack />
                 Confirmação
               </Title1>
-            </Link>
+            </a>
           </Container>
           <div className="d-flex justify-content-center my-5">
             <Card

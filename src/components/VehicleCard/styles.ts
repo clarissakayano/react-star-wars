@@ -1,4 +1,5 @@
 import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const CardVehicle = styled(Card)`
@@ -53,4 +54,10 @@ export const Text1 = styled.h3`
   font-size: 14px;
   color: #525252;
   text-align: start;
+`;
+interface IVehicleProps {
+  disabled: string;
+}
+export const VehicleLink = styled(Link)<IVehicleProps>`
+  pointer-events: ${({ disabled }) => disabled === 'unknown' && 'none'};
 `;
