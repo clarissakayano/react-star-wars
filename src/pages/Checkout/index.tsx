@@ -179,7 +179,8 @@ const Checkout: React.FC = () => {
                       <InputMask
                         className="form-control"
                         mask="99999-999"
-                        {...register('cep', { required: 'informe o CEP' })}
+                        {...register('cep')}
+                        required
                       />
                       {isLoadingAddress && (
                         <span className="d-flex justify-content-center">
@@ -204,6 +205,7 @@ const Checkout: React.FC = () => {
                       type="text"
                       placeholder=""
                       {...register('logradouro')}
+                      required
                     />
                     <Row>
                       <Col>
@@ -213,9 +215,8 @@ const Checkout: React.FC = () => {
                         <input
                           type="text"
                           className="form-control"
-                          {...register('number', {
-                            required: 'informe o Número',
-                          })}
+                          {...register('number')}
+                          required
                         />
                       </Col>
                       <Col>
@@ -239,6 +240,7 @@ const Checkout: React.FC = () => {
                         className="form-control"
                         type="text"
                         {...register('bairro')}
+                        required
                       />
                     </div>
                     <div>
@@ -248,6 +250,7 @@ const Checkout: React.FC = () => {
                       className="form-control"
                       type="text"
                       {...register('localidade')}
+                      required
                     />
 
                     <div>
@@ -259,6 +262,7 @@ const Checkout: React.FC = () => {
                         type="text"
                         placeholder="estado"
                         {...register('uf')}
+                        required
                       />
                     </div>
                   </div>
